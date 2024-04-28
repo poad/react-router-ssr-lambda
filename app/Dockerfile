@@ -1,12 +1,25 @@
 # Multi-stage build でビルド
 FROM node:lts AS builder
-RUN corepack enable \
- && corepack prepare pnpm@latest --activate
+
+RUN corepack enable
+RUN corepack prepare pnpm@latest --activate
+
 WORKDIR /build
 COPY package*.json ./
-RUN pnpm i --prod -f
+COPY pnpm*.yaml ./
+RUN pnpm i
 COPY . ./
 RUN pnpm build
+
+FROM node:lts AS base
+
+RUN corepack enable
+RUN corepack prepare pnpm@latest --activate
+
+WORKDIR /build
+COPY package*.json ./
+COPY pnpm*.yaml ./
+RUN pnpm i --prod
 
 # ベースイメージの変更
 FROM amazon/aws-lambda-nodejs:20
@@ -16,7 +29,7 @@ COPY --from=public.ecr.aws/awsguru/aws-lambda-adapter:0.8.3 /lambda-adapter /opt
 ENV PORT=8000
 ENV HOSTNAME=0.0.0.0
 
-COPY --from=builder /build/node_modules ./node_modules
+COPY --from=base /build/node_modules ./node_modules
 COPY --from=builder /build/build ./build
 COPY --from=builder /build/public ./public
 
