@@ -2,4 +2,4 @@
 
 [ ! -d '/tmp/cache' ] && mkdir -p /tmp/cache
 
-HOSTNAME=0.0.0.0 exec node ./build/server/index.js
+HOSTNAME=0.0.0.0 HOME=/tmp exec npm start

@@ -21,3 +21,8 @@ runs:
         OUTPUT_VALUE=$(aws cloudformation describe-stacks --stack-name ${{ inputs.stack-name }} --query "Stacks[].Outputs[?OutputKey == \`${{ inputs.output-key }}\`].OutputValue[]"  --output text)
         echo "output-value=$OUTPUT_VALUE" >> $GITHUB_OUTPUT
       shell: bash
+
+    - name: Logging
+      run: |
+        echo "output-value=${{ steps.describe-stacks.outputs.output-value }}"
+      shell: bash
