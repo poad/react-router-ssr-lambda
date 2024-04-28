@@ -1,18 +1,16 @@
 import * as cdk from 'aws-cdk-lib';
 import { Construct } from 'constructs';
 import * as lambda from 'aws-cdk-lib/aws-lambda';
-import * as assets from 'aws-cdk-lib/aws-ecr-assets';
 // import * as apigatewayv2 from '@aws-cdk/aws-apigatewayv2-alpha';
 // import * as integrations from '@aws-cdk/aws-apigatewayv2-integrations-alpha';
 import * as logs from 'aws-cdk-lib/aws-logs';
 interface CdkStackProps extends cdk.StackProps {
-  name: string
+  name: string;
 }
 
 export class CdkStack extends cdk.Stack {
   constructor(scope: Construct, id: string, props: CdkStackProps) {
     super(scope, id, props);
-
 
     const { name } = props;
 
@@ -23,14 +21,27 @@ export class CdkStack extends cdk.Stack {
       retention: logs.RetentionDays.ONE_DAY,
     });
 
-    // Next.js standaloneを動かすLambdaの定義
-    const handler = new lambda.DockerImageFunction(this, 'Handler', {
+    const layerVersion = lambda.LayerVersion.fromLayerVersionArn(
+      this,
+      'LambdaAdapterLayerVersion',
+      `arn:aws:lambda:${this.region}:753240598075:layer:LambdaAdapterLayerX86:22`,
+    );
+
+    const handler = new lambda.Function(this, 'Handler', {
       functionName,
-      code: lambda.DockerImageCode.fromImageAsset('../app', {
-        platform: assets.Platform.LINUX_ARM64,
-      }),
+      runtime: lambda.Runtime.NODEJS_20_X,
+      handler: 'run.sh',
+      code: lambda.Code.fromAsset('../app'),
       memorySize: 256,
       timeout: cdk.Duration.seconds(30),
+      environment: {
+        AWS_LAMBDA_EXEC_WRAPPER: '/opt/bootstrap',
+        AWS_LWA_ENABLE_COMPRESSION: 'true',
+        ASYNC_INIT: 'true',
+        RUST_LOG: 'info',
+        PORT: '8000',
+      },
+      layers: [layerVersion],
     });
     const url = handler.addFunctionUrl({
       authType: lambda.FunctionUrlAuthType.NONE,
@@ -47,6 +58,5 @@ export class CdkStack extends cdk.Stack {
     new cdk.CfnOutput(this, 'Output', {
       value: url.url,
     });
-
   }
 }

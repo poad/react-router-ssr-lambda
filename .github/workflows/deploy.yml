@@ -61,6 +61,8 @@ jobs:
         output-key: Output
 
     - name: Verify HTTP Status
+      env:
+        URL: ${{ steps.get-url.outputs.output-value }}
       run: |
-        CODE=$(curl -w "%{http_code}\n" -o /dev/null -sSL "${{ steps.get-url.output.output-value }}")
+        CODE=$(curl -w "%{http_code}\n" -o /dev/null -sSL "$URL")
         if [ "$CODE" != "200" ]; then exit 1; fi
