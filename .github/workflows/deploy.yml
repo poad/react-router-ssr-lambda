@@ -54,3 +54,15 @@ jobs:
       working-directory: cdk
       run: 
         cdk deploy
+
+    - name: Get URL
+      id: get-url
+      uses: ./.github/actions/get-stack-output
+      with:
+        stack-name: remix-ssr-lambda-example-stack
+        output-key: Output
+
+    - name: Verify HTTP Status
+      run: |
+        CODE=$(curl -w "%{http_code}\n" -o /dev/null -sSL "${{ steps.get-url.output.output-value }}")
+        if [ "$CODE" != "200" ]; then exit 1; fi
