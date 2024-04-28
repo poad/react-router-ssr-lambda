@@ -33,19 +33,6 @@ jobs:
 
     - uses: actions/checkout@v4
 
-    - name: Set up QEMU
-      uses: docker/setup-qemu-action@v3
-
-    - name: Set up Docker Buildx
-      uses: docker/setup-buildx-action@v3
-
-    - uses: actions/cache@v4
-      with:
-        path: /tmp/.buildx-cache
-        key: ${{ runner.os }}-buildx-${{ github.sha }}
-        restore-keys: |
-          ${{ runner.os }}-buildx-
-
     - uses: pnpm/action-setup@v3
       name: Install pnpm
       id: pnpm-install
@@ -67,3 +54,15 @@ jobs:
       working-directory: cdk
       run: 
         cdk deploy
+
+    - name: Get URL
+      id: get-url
+      uses: ./.github/actions/get-stack-output
+      with:
+        stack-name: remix-ssr-lambda-example-stack
+        output-key: Output
+
+    - name: Verify HTTP Status
+      run: |
+        CODE=$(curl -w "%{http_code}\n" -o /dev/null -sSL "${{ steps.get-url.output.output-value }}")
+        if [ "$CODE" != "200" ]; then exit 1; fi
