@@ -1,7 +1,6 @@
 import * as childProcess from 'child_process';
 import * as fs from 'fs';
 
-// eslint-disable-next-line import/prefer-default-export
 export function compileBundles() {
   childProcess.execSync('pnpm build', {
     cwd: `${process.cwd()}/../app/`,
