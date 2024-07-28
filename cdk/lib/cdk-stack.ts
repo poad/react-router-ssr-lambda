@@ -24,12 +24,13 @@ export class CdkStack extends cdk.Stack {
     const layerVersion = lambda.LayerVersion.fromLayerVersionArn(
       this,
       'LambdaAdapterLayerVersion',
-      `arn:aws:lambda:${this.region}:753240598075:layer:LambdaAdapterLayerX86:22`,
+      `arn:aws:lambda:${this.region}:753240598075:layer:LambdaAdapterLayerArm64:22`,
     );
 
     const handler = new lambda.Function(this, 'Handler', {
       functionName,
       runtime: lambda.Runtime.NODEJS_20_X,
+      architecture: lambda.Architecture.ARM_64,
       handler: 'run.sh',
       code: lambda.Code.fromAsset('../app'),
       memorySize: 256,
