@@ -1,18 +1,11 @@
 // @ts-check
 
-// @ts-ignore
-import globals from "globals";
-// @ts-ignore
-import { fixupConfigRules, fixupPluginRules } from "@eslint/compat";
-import react from "eslint-plugin-react";
+import { fixupConfigRules } from "@eslint/compat";
 import jsxA11Y from "eslint-plugin-jsx-a11y";
-import typescriptEslint from "@typescript-eslint/eslint-plugin";
-// @ts-ignore
+import tseslint from "typescript-eslint";
+// @ts-expect-error ignore errors
 import _import from "eslint-plugin-import";
-import tsParser from "@typescript-eslint/parser";
-// @ts-ignore
 import path from "node:path";
-// @ts-ignore
 import { fileURLToPath } from "node:url";
 import js from "@eslint/js";
 import { FlatCompat } from "@eslint/eslintrc";
@@ -20,102 +13,62 @@ import { FlatCompat } from "@eslint/eslintrc";
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const compat = new FlatCompat({
-    baseDirectory: __dirname,
-    recommendedConfig: js.configs.recommended,
-    allConfig: js.configs.all
+  baseDirectory: __dirname,
+  recommendedConfig: js.configs.recommended,
+  allConfig: js.configs.all
 });
 
-export default [{
-    ignores: ['**/*.js'],
-}, ...compat.extends("eslint:recommended"), {
+export default tseslint.config({
+  ignores: [
+    '**/*.{js,d.ts}'
+  ],
+},
+  {
+    ..._import.flatConfigs.recommended,
+    ..._import.flatConfigs.typescript,
     languageOptions: {
-        globals: {
-            ...globals.browser,
-            ...globals.commonjs,
-        },
-
-        ecmaVersion: "latest",
-        sourceType: "module",
-
-        parserOptions: {
-            ecmaFeatures: {
-                jsx: true,
-            },
-        },
+      parser: tseslint.parser,
+      ecmaVersion: 'latest',
+      sourceType: 'module',
     },
-}, ...fixupConfigRules(compat.extends(
-    "plugin:react/recommended",
+    plugins: {
+      'jsx-a11y': jsxA11Y,
+    },
+    settings: {
+      "import/internal-regex": "^~/",
+      'import/resolver': {
+        typescript: true,
+        node: true,
+      },
+    },
+  },
+  ...tseslint.configs.strict,
+  ...tseslint.configs.stylistic,
+  ...fixupConfigRules(compat.extends(
     "plugin:react/jsx-runtime",
     "plugin:react-hooks/recommended",
-    "plugin:jsx-a11y/recommended",
-)).map(config => ({
-    ...config,
-    files: ["**/*.{js,jsx,ts,tsx}"],
-})), {
-    files: ["**/*.{js,jsx,ts,tsx}"],
-
-    plugins: {
-        react: fixupPluginRules(react),
-        "jsx-a11y": fixupPluginRules(jsxA11Y),
-    },
-
-    settings: {
-        react: {
-            version: "detect",
-        },
-
-        formComponents: ["Form"],
-
-        linkComponents: [{
-            name: "Link",
-            linkAttribute: "to",
-        }, {
-            name: "NavLink",
-            linkAttribute: "to",
-        }],
-
-        "import/resolver": {
-            typescript: {},
-        },
-    },
-}, ...fixupConfigRules(compat.extends(
-    "plugin:@typescript-eslint/recommended",
-    "plugin:import/recommended",
-    "plugin:import/typescript",
-)).map(config => ({
+  )).map(config => ({
     ...config,
     files: ["**/*.{ts,tsx}"],
-})), {
-    files: ["**/*.{ts,tsx}"],
-
-    plugins: {
-        "@typescript-eslint": fixupPluginRules(typescriptEslint),
-        import: fixupPluginRules(_import),
-    },
-
-    languageOptions: {
-        parser: tsParser,
-    },
 
     settings: {
-        "import/internal-regex": "^~/",
+      react: {
+        version: "detect",
+      },
 
-        "import/resolver": {
-            node: {
-                extensions: [".ts", ".tsx"],
-            },
+      formComponents: ["Form"],
 
-            typescript: {
-                alwaysTryTypes: true,
-            },
-        },
+      linkComponents: [{
+        name: "Link",
+        linkAttribute: "to",
+      }, {
+        name: "NavLink",
+        linkAttribute: "to",
+      }],
+
+      "import/resolver": {
+        typescript: {},
+      },
     },
-}, {
-    files: ["**/.eslintrc.cjs"],
-
-    languageOptions: {
-        globals: {
-            ...globals.node,
-        },
-    },
-}];
+  })),
+);

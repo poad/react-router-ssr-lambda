@@ -8,21 +8,19 @@
     "build": "tsc",
     "watch": "tsc -w",
     "cdk": "cdk",
-    "prettier:fix": "prettier --write bin lib",
     "eslint:fix": "eslint --fix './{bin,lib}/**/*{.ts,.js,.tsx,.jsx}'",
-    "prettier:check": "prettier --check bin lib",
     "eslint:check": "eslint './{bin,lib}/**/*{.ts,.js,.tsx,.jsx}'",
     "lint": "pnpm --parallel --filter '@remix-ssr-lambda/cdk' run /^.+:check$/",
     "lint-fix": "pnpm run /^.+:fix$/"
   },
   "devDependencies": {
-    "@types/node": "^22.5.1",
-    "aws-cdk": "^2.155.0",
+    "@types/node": "^22.5.4",
+    "aws-cdk": "^2.156.0",
     "ts-node": "^10.9.2",
     "typescript": "^5.5.4"
   },
   "dependencies": {
-    "aws-cdk-lib": "^2.155.0",
+    "aws-cdk-lib": "^2.156.0",
     "constructs": "^10.3.0",
     "source-map-support": "^0.5.21"
   }

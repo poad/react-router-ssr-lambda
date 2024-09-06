@@ -6,8 +6,6 @@
   "scripts": {
     "build": "remix vite:build",
     "dev": "remix vite:dev",
-    "prettier:check": "prettier --check app",
-    "prettier:fix": "prettier --write app",
     "eslint:check": "eslint --cache --cache-location ./node_modules/.cache/eslint .",
     "eslint:fix": "eslint --fix --cache --cache-location ./node_modules/.cache/eslint .",
     "lint": "pnpm --parallel --filter '@remix-ssr-lambda/app' run /^.+:check$/",
@@ -28,7 +26,7 @@
     "@types/react": "^18.3.5",
     "@types/react-dom": "^18.3.0",
     "typescript": "^5.5.4",
-    "vite": "^5.4.2",
+    "vite": "^5.4.3",
     "vite-tsconfig-paths": "^5.0.1"
   },
   "engines": {
