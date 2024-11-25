@@ -29,7 +29,7 @@ export class CdkStack extends cdk.Stack {
 
     const handler = new lambda.Function(this, 'Handler', {
       functionName,
-      runtime: lambda.Runtime.NODEJS_20_X,
+      runtime: lambda.Runtime.NODEJS_22_X,
       architecture: lambda.Architecture.ARM_64,
       handler: 'run.sh',
       code: lambda.Code.fromAsset('../app'),
