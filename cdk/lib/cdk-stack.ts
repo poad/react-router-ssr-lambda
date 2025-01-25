@@ -1,8 +1,7 @@
 import * as cdk from 'aws-cdk-lib';
 import { Construct } from 'constructs';
 import * as lambda from 'aws-cdk-lib/aws-lambda';
-// import * as apigatewayv2 from '@aws-cdk/aws-apigatewayv2-alpha';
-// import * as integrations from '@aws-cdk/aws-apigatewayv2-integrations-alpha';
+import * as nodejs from 'aws-cdk-lib/aws-lambda-nodejs';
 import * as logs from 'aws-cdk-lib/aws-logs';
 interface CdkStackProps extends cdk.StackProps {
   name: string;
@@ -27,7 +26,7 @@ export class CdkStack extends cdk.Stack {
       `arn:aws:lambda:${this.region}:753240598075:layer:LambdaAdapterLayerArm64:22`,
     );
 
-    const handler = new lambda.Function(this, 'Handler', {
+    const handler = new nodejs.NodejsFunction(this, 'Handler', {
       functionName,
       runtime: lambda.Runtime.NODEJS_22_X,
       architecture: lambda.Architecture.ARM_64,
@@ -43,6 +42,9 @@ export class CdkStack extends cdk.Stack {
         PORT: '8000',
       },
       layers: [layerVersion],
+      bundling: {
+        format: nodejs.OutputFormat.ESM,
+      },
     });
     const url = handler.addFunctionUrl({
       authType: lambda.FunctionUrlAuthType.NONE,
