@@ -1,7 +1,7 @@
 import * as cdk from 'aws-cdk-lib';
 import { Construct } from 'constructs';
 import * as lambda from 'aws-cdk-lib/aws-lambda';
-import * as nodejs from 'aws-cdk-lib/aws-lambda-nodejs';
+import * as assets from 'aws-cdk-lib/aws-ecr-assets';
 import * as logs from 'aws-cdk-lib/aws-logs';
 interface CdkStackProps extends cdk.StackProps {
   name: string;
@@ -20,44 +20,24 @@ export class CdkStack extends cdk.Stack {
       retention: logs.RetentionDays.ONE_DAY,
     });
 
-    const layerVersion = lambda.LayerVersion.fromLayerVersionArn(
-      this,
-      'LambdaAdapterLayerVersion',
-      `arn:aws:lambda:${this.region}:753240598075:layer:LambdaAdapterLayerArm64:22`,
-    );
-
-    const handler = new nodejs.NodejsFunction(this, 'Handler', {
+    const handler = new lambda.DockerImageFunction(this, 'Handler', {
       functionName,
-      runtime: lambda.Runtime.NODEJS_22_X,
-      architecture: lambda.Architecture.ARM_64,
-      handler: 'run.sh',
-      code: lambda.Code.fromAsset('../app'),
+      code: lambda.DockerImageCode.fromImageAsset('../app', {
+        platform: assets.Platform.LINUX_ARM64,
+      }),
       memorySize: 256,
       timeout: cdk.Duration.seconds(30),
+      architecture: lambda.Architecture.ARM_64,
       environment: {
-        AWS_LAMBDA_EXEC_WRAPPER: '/opt/bootstrap',
         AWS_LWA_ENABLE_COMPRESSION: 'true',
         ASYNC_INIT: 'true',
         RUST_LOG: 'info',
-        PORT: '8000',
-      },
-      layers: [layerVersion],
-      bundling: {
-        format: nodejs.OutputFormat.ESM,
       },
     });
     const url = handler.addFunctionUrl({
       authType: lambda.FunctionUrlAuthType.NONE,
     });
 
-    // // Amazon API Gateway HTTP APIの定義
-    // new apigatewayv2.HttpApi(this, 'Api', {
-    //   apiName: `${name}-api`,
-    //   defaultIntegration: new integrations.HttpLambdaIntegration(
-    //     'Integration',
-    //     handler,
-    //   ),
-    // });
     new cdk.CfnOutput(this, 'Output', {
       value: url.url,
     });

@@ -20,7 +20,7 @@ permissions:
 
 jobs:
   deploy:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04-arm
     steps:
     - name: Configure AWS Credentials
       uses: aws-actions/configure-aws-credentials@v4
@@ -55,7 +55,7 @@ jobs:
       id: get-url
       uses: ./.github/actions/get-stack-output
       with:
-        stack-name: remix-ssr-lambda-example-stack
+        stack-name: react-router-ssr-lambda-stack
         output-key: Output
 
     - name: Verify HTTP Status

@@ -1,5 +1,5 @@
 {
-  "name": "@remix-ssr-lambda/cdk",
+  "name": "@react-router-ssr-lambda/cdk",
   "version": "0.1.0",
   "bin": {
     "cdk": "bin/cdk.js"
@@ -10,7 +10,7 @@
     "cdk": "cdk",
     "eslint:fix": "eslint --fix './{bin,lib}/**/*{.ts,.js,.tsx,.jsx}'",
     "eslint:check": "eslint './{bin,lib}/**/*{.ts,.js,.tsx,.jsx}'",
-    "lint": "pnpm --parallel --filter '@remix-ssr-lambda/cdk' run /^.+:check$/",
+    "lint": "pnpm --parallel --filter '@react-router-ssr-lambda/cdk' run /^.+:check$/",
     "lint-fix": "pnpm run /^.+:fix$/"
   },
   "devDependencies": {
