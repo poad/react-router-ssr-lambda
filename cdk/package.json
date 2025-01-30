@@ -8,10 +8,8 @@
     "build": "tsc",
     "watch": "tsc -w",
     "cdk": "cdk",
-    "eslint:fix": "eslint --fix './{bin,lib}/**/*{.ts,.js,.tsx,.jsx}'",
-    "eslint:check": "eslint './{bin,lib}/**/*{.ts,.js,.tsx,.jsx}'",
-    "lint": "pnpm --parallel --filter '@react-router-ssr-lambda/cdk' run /^.+:check$/",
-    "lint-fix": "pnpm run /^.+:fix$/"
+    "lint-fix": "eslint --fix './{bin,lib}/**/*{.ts,.js,.tsx,.jsx}'",
+    "lint": "eslint './{bin,lib}/**/*{.ts,.js,.tsx,.jsx}'"
   },
   "devDependencies": {
     "@types/node": "^22.12.0",
