@@ -1,6 +1,7 @@
 {
   "name": "@react-router-ssr-lambda/cdk",
   "version": "0.1.0",
+  "type": "module",
   "bin": {
     "cdk": "bin/cdk.js"
   },

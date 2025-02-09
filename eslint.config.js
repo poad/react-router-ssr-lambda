@@ -44,10 +44,10 @@ export default tseslint.config({
   },
   ...tseslint.configs.strict,
   ...tseslint.configs.stylistic,
-  ...fixupConfigRules(compat.extends(
+  ...compat.extends(
     "plugin:react/jsx-runtime",
     "plugin:react-hooks/recommended",
-  )).map(config => ({
+  ).map(config => ({
     ...config,
     files: ["**/*.{ts,tsx}"],
 
