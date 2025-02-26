@@ -15,7 +15,9 @@ updates:
           - '*'
 
   - package-ecosystem: npm
-    directory: '/app/'
+    directories:
+      - '/app/'
+      - '/cdk/'
     schedule:
       interval: daily
       timezone: Asia/Tokyo
@@ -25,21 +27,6 @@ updates:
     assignees:
       - poad
     groups:
-      remix:
-        patterns:
-          - '*'
-
-  - package-ecosystem: npm
-    directory: '/cdk/'
-    schedule:
-      interval: daily
-      timezone: Asia/Tokyo
-    allow:
-      - dependency-type: all
-    rebase-strategy: auto
-    assignees:
-      - poad
-    groups:
-      cdk:
+      npm:
         patterns:
           - '*'
