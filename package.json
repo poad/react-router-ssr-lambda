@@ -2,6 +2,7 @@
   "name": "remix-ssr-lambda",
   "version": "1.0.0",
   "description": "",
+  "type": "module",
   "scripts": {
     "build": "pnpm -r --if-present --parallel build",
     "lint": "pnpm -r --if-present --parallel lint",

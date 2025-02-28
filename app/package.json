@@ -1,5 +1,5 @@
 {
-  "name": "@remix-ssr-lambda/app",
+  "name": "@react-router-ssr-lambda/app",
   "private": true,
   "sideEffects": false,
   "type": "module",
@@ -8,7 +8,7 @@
     "dev": "react-router dev",
     "eslint:check": "eslint --cache --cache-location ./node_modules/.cache/eslint .",
     "eslint:fix": "eslint --fix --cache --cache-location ./node_modules/.cache/eslint .",
-    "lint": "pnpm --parallel --filter '@remix-ssr-lambda/app' run /^.+:check$/",
+    "lint": "pnpm --parallel --filter '@react-router/app' run /^.+:check$/",
     "lint-fix": "pnpm run /^.+:fix$/",
     "start": "react-router-serve ./build/server/index.js",
     "typecheck": "react-router typegen && tsc"

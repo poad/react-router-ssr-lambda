@@ -48,6 +48,8 @@ jobs:
 
     - name: deploy (cdk)
       working-directory: cdk
+      env:
+        NO_PREBUILT_LAMBDA: 1
       run: 
         cdk deploy
 
