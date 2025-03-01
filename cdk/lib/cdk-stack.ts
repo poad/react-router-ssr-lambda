@@ -32,14 +32,11 @@ export class CdkStack extends cdk.Stack {
 
     const image = new assets.DockerImageAsset(this, 'Image', {
       directory: '../app',
-      platform: assets.Platform.LINUX_ARM64,
     });
 
     const deployment = new ecrdeploy.ECRDeployment(this, 'DeployDockerImage', {
-      buildImage: 'public.ecr.aws/sam/build-provided.al2023:latest-arm64',
       src: new ecrdeploy.DockerImageName(image.imageUri),
       dest: new ecrdeploy.DockerImageName(`${this.account}.dkr.ecr.${this.region}.amazonaws.com/${repo.repositoryName}:latest`),
-      // imageArch: ['arm64'],
     });
 
     const role = new iam.Role(this, 'Role', {
@@ -74,7 +71,7 @@ export class CdkStack extends cdk.Stack {
       code: lambda.DockerImageCode.fromEcr(repo),
       memorySize: 256,
       timeout: cdk.Duration.seconds(30),
-      architecture: lambda.Architecture.ARM_64,
+      architecture: lambda.Architecture.X86_64,
       environment: {
         AWS_LWA_ENABLE_COMPRESSION: 'true',
         ASYNC_INIT: 'true',

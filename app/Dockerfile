@@ -1,5 +1,5 @@
 # Multi-stage buildでアプリをビルド
-FROM --platform=linux/arm64 node:lts-slim AS builder
+FROM --platform=linux/amd64 node:lts-slim AS builder
 WORKDIR /build
 COPY package*.json ./
 RUN npm i
@@ -7,10 +7,10 @@ COPY . ./
 RUN npm run build
 
 # ベースイメージの変更
-FROM --platform=linux/arm64 amazon/aws-lambda-nodejs:22-arm64
+FROM --platform=linux/amd64 amazon/aws-lambda-nodejs:22-x86_64
 
 # Lambda Web Adapterのインストール
-COPY --from=public.ecr.aws/awsguru/aws-lambda-adapter:0.9.0-aarch64 /lambda-adapter /opt/extensions/lambda-adapter
+COPY --from=public.ecr.aws/awsguru/aws-lambda-adapter:0.9.0 /lambda-adapter /opt/extensions/lambda-adapter
 ENV PORT=3000
 
 RUN npm -g install pnpm
