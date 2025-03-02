@@ -131,8 +131,8 @@ importers:
         specifier: ^2.1001.0
         version: 2.1001.0
       cdk-ecr-deployment:
-        specifier: ~3.0.154
-        version: 3.0.154(aws-cdk-lib@2.181.1(constructs@10.4.2))(constructs@10.4.2)
+        specifier: ~3.1.10
+        version: 3.1.10(aws-cdk-lib@2.181.1(constructs@10.4.2))(constructs@10.4.2)
       ts-node:
         specifier: ^10.9.2
         version: 10.9.2(@types/node@22.13.8)(typescript@5.8.2)
@@ -1027,10 +1027,10 @@ packages:
   caniuse-lite@1.0.30001701:
     resolution: {integrity: sha512-faRs/AW3jA9nTwmJBSO1PQ6L/EOgsB5HMQQq4iCu5zhPgVVgO/pZRHlmatwijZKetFw8/Pr4q6dEN8sJuq8qTw==}
 
-  cdk-ecr-deployment@3.0.154:
-    resolution: {integrity: sha512-5LA2QSlORi6gOjVq/iahsoXvtFO12q+VsAyQvvMKE7JFFiecL/kHXJ8HNiKwaABoWaYF9qINBR9fgZgghNINYQ==}
+  cdk-ecr-deployment@3.1.10:
+    resolution: {integrity: sha512-hGVgOWWtYaPLAko4BH98TpOE2bhz/VPxhmSG0CiQ6LLfBj//nj2HFwbO6EskQ4l0oA9hOysqbiKsFvGR/ftAsQ==}
     peerDependencies:
-      aws-cdk-lib: ^2.0.0
+      aws-cdk-lib: ^2.80.0
       constructs: ^10.0.5
     bundledDependencies:
       - got
@@ -3554,7 +3554,7 @@ snapshots:
 
   caniuse-lite@1.0.30001701: {}
 
-  cdk-ecr-deployment@3.0.154(aws-cdk-lib@2.181.1(constructs@10.4.2))(constructs@10.4.2):
+  cdk-ecr-deployment@3.1.10(aws-cdk-lib@2.181.1(constructs@10.4.2))(constructs@10.4.2):
     dependencies:
       aws-cdk-lib: 2.181.1(constructs@10.4.2)
       constructs: 10.4.2
