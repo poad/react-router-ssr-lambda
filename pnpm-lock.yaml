@@ -42,8 +42,8 @@ importers:
         specifier: ^15.15.0
         version: 15.15.0
       pnpm:
-        specifier: ^10.6.2
-        version: 10.6.2
+        specifier: ^10.6.3
+        version: 10.6.3
       typescript-eslint:
         specifier: ^8.26.1
         version: 8.26.1(eslint@9.22.0)(typescript@5.8.2)
@@ -131,8 +131,8 @@ importers:
         specifier: ^2.1003.0
         version: 2.1003.0
       cdk-ecr-deployment:
-        specifier: ~3.1.12
-        version: 3.1.12(aws-cdk-lib@2.183.0(constructs@10.4.2))(constructs@10.4.2)
+        specifier: ~4.0.0
+        version: 4.0.0(aws-cdk-lib@2.183.0(constructs@10.4.2))(constructs@10.4.2)
       ts-node:
         specifier: ^10.9.2
         version: 10.9.2(@types/node@22.13.10)(typescript@5.8.2)
@@ -1029,14 +1029,11 @@ packages:
   caniuse-lite@1.0.30001703:
     resolution: {integrity: sha512-kRlAGTRWgPsOj7oARC9m1okJEXdL/8fekFVcxA8Hl7GH4r/sN4OJn/i6Flde373T50KS7Y37oFbMwlE8+F42kQ==}
 
-  cdk-ecr-deployment@3.1.12:
-    resolution: {integrity: sha512-aRNC62Uq4jFouplWmdlg7Wa0d5rVG4DppxP90QX82m7iVvDJds9tjqIuF+nLLBX8VgMU8Bft9YZKmrBht3G13A==}
+  cdk-ecr-deployment@4.0.0:
+    resolution: {integrity: sha512-RFWPj78l/gZpHWWWA8Mlb/+U8Iavast7cWuVMje34Qvq6H/uI96oBKWb/hwFEJvMbowc99p5q2OcHvuwWFaAwQ==}
     peerDependencies:
       aws-cdk-lib: ^2.80.0
       constructs: ^10.0.5
-    bundledDependencies:
-      - got
-      - hpagent
 
   chalk@4.1.2:
     resolution: {integrity: sha512-oKnbhFyRIXpUuez8iBMmyEa4nbj4IOQyuhc/wy9kY7/WVPcwIO9VA668Pu8RkO7+0G76SLROeyw9CpQ061i4mA==}
@@ -1999,8 +1996,8 @@ packages:
     resolution: {integrity: sha512-M7BAV6Rlcy5u+m6oPhAPFgJTzAioX/6B0DxyvDlo9l8+T3nLKbrczg2WLUyzd45L8RqfUMyGPzekbMvX2Ldkwg==}
     engines: {node: '>=12'}
 
-  pnpm@10.6.2:
-    resolution: {integrity: sha512-R4cHFr6hVytT3zSthke0KWK8eQziv0Viug9kMjfXMCo9ao7O+eS9/AHSOvGWmqkEhdTOuwuWOPpe8drvZW9sGw==}
+  pnpm@10.6.3:
+    resolution: {integrity: sha512-u0XjTVCpp26FipWDcwG/tr1tNa6ixdUglPpJekZ8Q/XEQBA84lEengovicPWBxuqwzWPxorG+3XizrPSc2Bl5g==}
     engines: {node: '>=18.12'}
     hasBin: true
 
@@ -3489,7 +3486,7 @@ snapshots:
 
   caniuse-lite@1.0.30001703: {}
 
-  cdk-ecr-deployment@3.1.12(aws-cdk-lib@2.183.0(constructs@10.4.2))(constructs@10.4.2):
+  cdk-ecr-deployment@4.0.0(aws-cdk-lib@2.183.0(constructs@10.4.2))(constructs@10.4.2):
     dependencies:
       aws-cdk-lib: 2.183.0(constructs@10.4.2)
       constructs: 10.4.2
@@ -4599,7 +4596,7 @@ snapshots:
 
   picomatch@4.0.2: {}
 
-  pnpm@10.6.2: {}
+  pnpm@10.6.3: {}
 
   possible-typed-array-names@1.1.0: {}
 
