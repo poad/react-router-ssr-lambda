@@ -42,8 +42,8 @@ importers:
         specifier: ^15.15.0
         version: 15.15.0
       pnpm:
-        specifier: ^10.6.3
-        version: 10.6.3
+        specifier: ^10.6.4
+        version: 10.6.4
       typescript-eslint:
         specifier: ^8.26.1
         version: 8.26.1(eslint@9.22.0)(typescript@5.8.2)
@@ -2062,8 +2062,8 @@ packages:
     resolution: {integrity: sha512-M7BAV6Rlcy5u+m6oPhAPFgJTzAioX/6B0DxyvDlo9l8+T3nLKbrczg2WLUyzd45L8RqfUMyGPzekbMvX2Ldkwg==}
     engines: {node: '>=12'}
 
-  pnpm@10.6.3:
-    resolution: {integrity: sha512-u0XjTVCpp26FipWDcwG/tr1tNa6ixdUglPpJekZ8Q/XEQBA84lEengovicPWBxuqwzWPxorG+3XizrPSc2Bl5g==}
+  pnpm@10.6.4:
+    resolution: {integrity: sha512-2j1xW/0iqaEF5ugIjPx4JmmTMt7WDEI7FOxhOhhfFgIgZwL/D+TEOMsVyXkIHOTLAlaONksVF0UDpjx6jipfbA==}
     engines: {node: '>=18.12'}
     hasBin: true
 
@@ -4724,7 +4724,7 @@ snapshots:
 
   picomatch@4.0.2: {}
 
-  pnpm@10.6.3: {}
+  pnpm@10.6.4: {}
 
   possible-typed-array-names@1.1.0: {}
 
