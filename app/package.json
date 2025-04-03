@@ -30,11 +30,11 @@
     "@types/compression": "^1.7.5",
     "@types/express": "^5.0.1",
     "@types/morgan": "^1.9.9",
-    "@types/node": "^22.13.17",
+    "@types/node": "^22.14.0",
     "@types/react": "^19.1.0",
     "@types/react-dom": "^19.1.1",
     "typescript": "^5.8.2",
-    "vite": "^6.2.4",
+    "vite": "^6.2.5",
     "vite-tsconfig-paths": "^5.1.4"
   },
   "engines": {
