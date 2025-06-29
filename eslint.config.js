@@ -1,9 +1,7 @@
 // @ts-check
 
-import { fixupConfigRules } from "@eslint/compat";
 import jsxA11Y from "eslint-plugin-jsx-a11y";
 import tseslint from "typescript-eslint";
-// @ts-expect-error ignore errors
 import _import from "eslint-plugin-import";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
@@ -18,11 +16,12 @@ const compat = new FlatCompat({
   allConfig: js.configs.all
 });
 
-export default tseslint.config({
-  ignores: [
-    '**/*.{js,d.ts}'
-  ],
-},
+export default tseslint.config(
+  {
+    ignores: [
+      '**/*.{js,d.ts}'
+    ],
+  },
   {
     ..._import.flatConfigs.recommended,
     ..._import.flatConfigs.typescript,

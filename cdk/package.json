@@ -9,11 +9,11 @@
     "build": "tsc",
     "watch": "tsc -w",
     "cdk": "cdk",
-    "lint-fix": "eslint --fix './{bin,lib}/**/*{.ts,.js,.tsx,.jsx}'",
-    "lint": "eslint './{bin,lib}/**/*{.ts,.js,.tsx,.jsx}'"
+    "lint-fix": "eslint --fix",
+    "lint": "eslint"
   },
   "devDependencies": {
-    "@types/node": "^22.15.33",
+    "@types/node": "^22.15.34",
     "aws-cdk": "^2.1019.2",
     "cdk-ecr-deployment": "^4.0.1",
     "ts-node": "^10.9.2",
