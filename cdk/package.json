@@ -13,14 +13,14 @@
     "lint": "eslint"
   },
   "devDependencies": {
-    "@types/node": "^22.18.11",
-    "aws-cdk": "^2.1030.0",
+    "@types/node": "^22.19.0",
+    "aws-cdk": "^2.1031.1",
     "cdk-ecr-deployment": "^4.0.3",
     "ts-node": "^10.9.2",
     "typescript": "^5.9.3"
   },
   "dependencies": {
-    "aws-cdk-lib": "^2.220.0",
+    "aws-cdk-lib": "^2.221.1",
     "constructs": "^10.4.2",
     "source-map-support": "^0.5.21"
   }
