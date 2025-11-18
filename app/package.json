@@ -14,24 +14,24 @@
     "typecheck": "react-router typegen && tsc"
   },
   "dependencies": {
-    "@react-router/fs-routes": "^7.9.5",
-    "@react-router/node": "^7.9.5",
-    "@react-router/serve": "^7.9.5",
+    "@react-router/fs-routes": "^7.9.6",
+    "@react-router/node": "^7.9.6",
+    "@react-router/serve": "^7.9.6",
     "compression": "^1.8.1",
     "express": "^5.1.0",
     "isbot": "^5.1.32",
     "morgan": "^1.10.1",
     "react": "^19.2.0",
     "react-dom": "^19.2.0",
-    "react-router": "^7.9.5"
+    "react-router": "^7.9.6"
   },
   "devDependencies": {
-    "@react-router/dev": "^7.9.5",
+    "@react-router/dev": "^7.9.6",
     "@types/compression": "^1.8.1",
     "@types/express": "^5.0.5",
     "@types/morgan": "^1.9.10",
     "@types/node": "^22.19.1",
-    "@types/react": "^19.2.4",
+    "@types/react": "^19.2.6",
     "@types/react-dom": "^19.2.3",
     "typescript": "^5.9.3",
     "vite": "^6.4.1",
