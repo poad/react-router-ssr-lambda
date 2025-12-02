@@ -18,7 +18,7 @@
     "@react-router/node": "^7.9.6",
     "@react-router/serve": "^7.9.6",
     "compression": "^1.8.1",
-    "express": "^5.2.0",
+    "express": "^5.2.1",
     "isbot": "^5.1.32",
     "morgan": "^1.10.1",
     "react": "^19.2.0",
@@ -28,7 +28,7 @@
   "devDependencies": {
     "@react-router/dev": "^7.9.6",
     "@types/compression": "^1.8.1",
-    "@types/express": "^5.0.5",
+    "@types/express": "^5.0.6",
     "@types/morgan": "^1.9.10",
     "@types/node": "^22.19.1",
     "@types/react": "^19.2.7",
