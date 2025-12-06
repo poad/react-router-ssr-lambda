@@ -10,7 +10,7 @@
     "strict": true,
     "noImplicitAny": true,
     "strictNullChecks": true,
-    "moduleResolution": "node",
+    "moduleResolution": "bundler",
     "noImplicitThis": true,
     "alwaysStrict": true,
     "noUnusedLocals": false,
