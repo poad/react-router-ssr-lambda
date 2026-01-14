@@ -4,4 +4,5 @@ packages:
 
 overrides:
   '@vitejs/plugin-rsc@<=0.5.2': '>=0.5.3'
+  diff@<8.0.3: '>=8.0.3'
   glob@>=10.3.7 <=11.0.3: '>=11.1.0'
