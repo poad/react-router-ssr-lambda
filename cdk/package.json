@@ -13,7 +13,7 @@
     "lint": "eslint"
   },
   "devDependencies": {
-    "@types/node": "^22.19.8",
+    "@types/node": "^22.19.9",
     "aws-cdk": "^2.1104.0",
     "cdk-ecr-deployment": "^4.1.0",
     "ts-node": "^10.9.2",
