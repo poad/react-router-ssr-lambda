@@ -3,12 +3,12 @@ import * as lambda from 'aws-cdk-lib/aws-lambda';
 import * as ecrdeploy from 'cdk-ecr-deployment';
 import * as assets from 'aws-cdk-lib/aws-ecr-assets';
 import * as logs from 'aws-cdk-lib/aws-logs';
-import * as ecr from "aws-cdk-lib/aws-ecr";
-import * as iam from "aws-cdk-lib/aws-iam";
+import * as ecr from 'aws-cdk-lib/aws-ecr';
+import * as iam from 'aws-cdk-lib/aws-iam';
 import { Construct } from 'constructs';
 
 interface CdkStackProps extends cdk.StackProps {
-  name: string;
+  readonly name: string;
 }
 
 export class CdkStack extends cdk.Stack {
@@ -25,9 +25,9 @@ export class CdkStack extends cdk.Stack {
     });
 
     const repo = new ecr.Repository(this, 'Repository', {
-      repositoryName: "react-router-ssr-lambda",
+      repositoryName: 'react-router-ssr-lambda',
       removalPolicy: cdk.RemovalPolicy.DESTROY,
-      emptyOnDelete: true
+      emptyOnDelete: true,
     });
 
     const image = new assets.DockerImageAsset(this, 'Image', {
@@ -63,7 +63,7 @@ export class CdkStack extends cdk.Stack {
             }),
           ],
         }),
-      }
+      },
     });
 
     const handler = new lambda.DockerImageFunction(this, 'Handler', {

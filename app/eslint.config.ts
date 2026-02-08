@@ -1,7 +1,6 @@
-// @ts-check
-
+import { defineConfig } from 'eslint/config';
 import jsxA11Y from "eslint-plugin-jsx-a11y";
-import tseslint from "typescript-eslint";
+import { configs, parser } from "typescript-eslint";
 import _import from "eslint-plugin-import";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
@@ -16,17 +15,18 @@ const compat = new FlatCompat({
   allConfig: js.configs.all
 });
 
-export default tseslint.config(
+export default defineConfig(
   {
     ignores: [
-      '**/*.{js,d.ts}'
+      '**/*.{js,d.ts}',
+      '**/build/**'
     ],
-  },
-  {
-    ..._import.flatConfigs.recommended,
-    ..._import.flatConfigs.typescript,
+    extends: [
+      _import.flatConfigs.recommended,
+      _import.flatConfigs.typescript,
+    ],
     languageOptions: {
-      parser: tseslint.parser,
+      parser,
       ecmaVersion: 'latest',
       sourceType: 'module',
     },
@@ -41,8 +41,8 @@ export default tseslint.config(
       },
     },
   },
-  ...tseslint.configs.strict,
-  ...tseslint.configs.stylistic,
+  ...configs.strict,
+  ...configs.stylistic,
   ...compat.extends(
     "plugin:react/jsx-runtime",
     "plugin:react-hooks/recommended",

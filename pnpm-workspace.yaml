@@ -5,4 +5,12 @@ packages:
 overrides:
   '@vitejs/plugin-rsc@<=0.5.2': '>=0.5.3'
   diff@<8.0.3: '>=8.0.3'
-  glob@>=10.3.7 <=11.0.3: '>=11.1.0'
+  glob@<=11.0.3: '>=11.1.0'
+  '@types/node': '^24'
+  'vite-tsconfig-paths': '>=6.0.0'
+  vite: '>7.0.0'
+  # eslint: ">=10.0.0"
+  # '@eslint/js': ">=10.0.0"
+  eslint: "^9"
+  '@eslint/js': "^9"
+  '@stylistic/eslint-plugin': '>=5.0.0'
