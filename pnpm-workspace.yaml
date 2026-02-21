@@ -3,14 +3,18 @@ packages:
   - ./cdk
 
 overrides:
+  '@eslint/js': ^9
+  '@stylistic/eslint-plugin': '>=5.0.0'
+  '@types/node': ^24
   '@vitejs/plugin-rsc@<=0.5.2': '>=0.5.3'
+  ajv@<8.18.0: '>=8.18.0'
   diff@<8.0.3: '>=8.0.3'
+  eslint: ^9
   glob@<=11.0.3: '>=11.1.0'
-  '@types/node': '^24'
-  'vite-tsconfig-paths': '>=6.0.0'
+  minimatch@<10.2.1: '>=10.2.1'
   vite: '>7.0.0'
+  vite-tsconfig-paths: '>=6.0.0'
   # eslint: ">=10.0.0"
   # '@eslint/js': ">=10.0.0"
-  eslint: "^9"
-  '@eslint/js': "^9"
-  '@stylistic/eslint-plugin': '>=5.0.0'
+  '@eslint/eslintrc>ajv': ^6.12.4
+  eslint>ajv: ^6.12.4

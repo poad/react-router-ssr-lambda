@@ -11,6 +11,7 @@
     "noImplicitAny": true,
     "strictNullChecks": true,
     "moduleResolution": "bundler",
+    "noEmit": true,
     "noImplicitThis": true,
     "alwaysStrict": true,
     "noUnusedLocals": false,
