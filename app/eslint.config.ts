@@ -1,7 +1,9 @@
 import { defineConfig } from 'eslint/config';
 import jsxA11Y from "eslint-plugin-jsx-a11y";
+import stylistic from '@stylistic/eslint-plugin';
 import { configs, parser } from "typescript-eslint";
-import _import from "eslint-plugin-import";
+import { importX, createNodeResolver } from 'eslint-plugin-import-x';
+import { createTypeScriptImportResolver } from 'eslint-import-resolver-typescript';
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import js from "@eslint/js";
@@ -21,10 +23,6 @@ export default defineConfig(
       '**/*.{js,d.ts}',
       '**/build/**'
     ],
-    extends: [
-      _import.flatConfigs.recommended,
-      _import.flatConfigs.typescript,
-    ],
     languageOptions: {
       parser,
       ecmaVersion: 'latest',
@@ -32,13 +30,19 @@ export default defineConfig(
     },
     plugins: {
       'jsx-a11y': jsxA11Y,
+      'import-x': importX,
+      '@stylistic': stylistic,
     },
+    extends: [
+      'import-x/flat/recommended',
+    ],
     settings: {
-      "import/internal-regex": "^~/",
-      'import/resolver': {
-        typescript: true,
-        node: true,
-      },
+      'import-x/resolver-next': [
+        createTypeScriptImportResolver({
+          alwaysTryTypes: true,
+        }),
+        createNodeResolver(),
+      ],
     },
   },
   ...configs.strict,

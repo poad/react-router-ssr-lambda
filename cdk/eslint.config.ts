@@ -2,8 +2,9 @@ import { defineConfig } from 'eslint/config';
 import eslint from '@eslint/js';
 import stylistic from '@stylistic/eslint-plugin';
 import {configs, parser} from 'typescript-eslint';
-import eslintImport from 'eslint-plugin-import';
-// import cdkPlugin from "eslint-plugin-awscdk";
+import { importX, createNodeResolver } from 'eslint-plugin-import-x';
+import { createTypeScriptImportResolver } from 'eslint-import-resolver-typescript';
+import cdkPlugin from "eslint-plugin-awscdk";
 
 import { includeIgnoreFile } from '@eslint/compat';
 import path from 'node:path';
@@ -22,14 +23,14 @@ export default defineConfig(
       'src/tsconfig.json',
       'src/stories',
       '**/*.css',
-      'node_modules/**/*',
+      '**/node_modules/**/*',
       './.next/*',
       'out',
       '.storybook',
       'dist',
       '.vinxi',
       '.output',
-      '**/build/**'
+      '**/build/**',
     ],
   },
   eslint.configs.recommended,
@@ -43,23 +44,30 @@ export default defineConfig(
       sourceType: 'module',
       parserOptions: {
         tsconfigRootDir: __dirname,
-        allowDefaultProject: ['*.ts'],
+        allowDefaultProject: ['eslint.config.ts'],
       },
     },
     plugins: {
+      'import-x': importX,
       '@stylistic': stylistic,
     },
     extends: [
-      // cdkPlugin.configs.recommended,
-      eslintImport.flatConfigs.recommended,
-      eslintImport.flatConfigs.typescript,
+      'import-x/flat/recommended',
+      cdkPlugin.configs.recommended,
     ],
+    settings: {
+      'import-x/resolver-next': [
+        createTypeScriptImportResolver({
+          alwaysTryTypes: true,
+        }),
+        createNodeResolver(),
+      ],
+    },
     rules: {
       '@stylistic/semi': ['error', 'always'],
       '@stylistic/indent': ['error', 2],
       '@stylistic/comma-dangle': ['error', 'always-multiline'],
       '@stylistic/quotes': ['error', 'single'],
-      // 'awscdk/require-jsdoc': 'off',
     },
   }
 );
