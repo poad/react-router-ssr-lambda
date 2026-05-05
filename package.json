@@ -8,8 +8,5 @@
     "lint": "pnpm -r --if-present --parallel lint",
     "lint-fix": "pnpm -r --if-present --parallel lint-fix"
   },
-  "devDependencies": {
-    "pnpm": "^10.33.2"
-  },
   "packageManager": "pnpm@11.0.5"
 }
