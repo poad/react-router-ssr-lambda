@@ -14,27 +14,27 @@
     "typecheck": "react-router typegen && tsc"
   },
   "dependencies": {
-    "@react-router/fs-routes": "^7.15.0",
-    "@react-router/node": "^7.15.0",
-    "@react-router/serve": "^7.15.0",
+    "@react-router/fs-routes": "^7.15.1",
+    "@react-router/node": "^7.15.1",
+    "@react-router/serve": "^7.15.1",
     "compression": "^1.8.1",
     "express": "^5.2.1",
     "isbot": "^5.1.40",
     "morgan": "^1.10.1",
     "react": "^19.2.6",
     "react-dom": "^19.2.6",
-    "react-router": "^7.15.0"
+    "react-router": "^7.15.1"
   },
   "devDependencies": {
     "@eslint/compat": "^2.1.0",
     "@eslint/eslintrc": "^3.3.5",
     "@eslint/js": "^10.0.1",
-    "@react-router/dev": "^7.15.0",
+    "@react-router/dev": "^7.15.1",
     "@stylistic/eslint-plugin": "^5.10.0",
     "@types/compression": "^1.8.1",
     "@types/express": "^5.0.6",
     "@types/morgan": "^1.9.10",
-    "@types/node": "^25.7.0",
+    "@types/node": "^25.8.0",
     "@types/react": "^19.2.14",
     "@types/react-dom": "^19.2.3",
     "eslint": "^10.3.0",
@@ -47,6 +47,6 @@
     "jiti": "^2.7.0",
     "typescript": "^6.0.3",
     "typescript-eslint": "^8.59.3",
-    "vite": "^8.0.12"
+    "vite": "^8.0.13"
   }
 }
