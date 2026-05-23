@@ -8,9 +8,13 @@ allowBuilds:
 
 minimumReleaseAge: 10080 # 7 days in minutes
 
+minimumReleaseAgeExclude:
+  - qs@6.15.2
+
 overrides:
   chokidar: '>=5'
   eslint-import-resolver-typescript: '^4.4.4'
+  qs@>=6.11.1 <=6.15.1: ^6.15.2
   semver: '>=7'
 
 trustPolicy: no-downgrade
