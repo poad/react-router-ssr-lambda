@@ -37,6 +37,8 @@ minimumReleaseAgeExclude:
   - '@esbuild/win32-ia32@0.28.1'
   - '@esbuild/win32-x64@0.28.1'
 
+  - pnpm@11.6.0
+
 overrides:
   chokidar: '>=5'
   esbuild@>=0.17.0 <0.28.1: ^0.28.1
