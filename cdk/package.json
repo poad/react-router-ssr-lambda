@@ -17,21 +17,21 @@
     "@eslint/eslintrc": "^3.3.5",
     "@eslint/js": "^10.0.1",
     "@stylistic/eslint-plugin": "^5.10.0",
-    "@types/node": "^25.9.3",
-    "aws-cdk": "^2.1127.0",
-    "cdk-ecr-deployment": "^4.2.16",
+    "@types/node": "^25.9.4",
+    "aws-cdk": "^2.1128.1",
+    "cdk-ecr-deployment": "^4.2.21",
     "eslint": "^10.5.0",
     "eslint-import-resolver-typescript": "^4.4.5",
     "eslint-plugin-awscdk": "^4.3.3",
-    "eslint-plugin-import-x": "^4.16.2",
-    "globals": "^17.6.0",
+    "eslint-plugin-import-x": "^4.17.0",
+    "globals": "^17.7.0",
     "jiti": "^2.7.0",
     "tsx": "^4.22.4",
     "typescript": "^6.0.3",
-    "typescript-eslint": "^8.61.0"
+    "typescript-eslint": "^8.62.0"
   },
   "dependencies": {
-    "aws-cdk-lib": "^2.259.0",
+    "aws-cdk-lib": "^2.260.0",
     "constructs": "^10.6.0",
     "source-map-support": "^0.5.21"
   }
