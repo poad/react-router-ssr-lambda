@@ -14,9 +14,9 @@
     "typecheck": "react-router typegen && tsc"
   },
   "dependencies": {
-    "@react-router/fs-routes": "^8.2.0",
-    "@react-router/node": "^8.2.0",
-    "@react-router/serve": "^8.2.0",
+    "@react-router/fs-routes": "^8.3.0",
+    "@react-router/node": "^8.3.0",
+    "@react-router/serve": "^8.3.0",
     "compression": "^1.8.1",
     "express": "^5.2.1",
     "isbot": "^5.2.1",
@@ -29,7 +29,7 @@
     "@eslint/compat": "^2.1.0",
     "@eslint/eslintrc": "^3.3.6",
     "@eslint/js": "^10.0.1",
-    "@react-router/dev": "^8.2.0",
+    "@react-router/dev": "^8.3.0",
     "@stylistic/eslint-plugin": "^5.10.0",
     "@types/compression": "^1.8.1",
     "@types/express": "^5.0.6",
