@@ -22,16 +22,16 @@
     "cdk-ecr-deployment": "^4.2.57",
     "eslint": "^10.9.1",
     "eslint-import-resolver-typescript": "^4.4.5",
-    "eslint-plugin-awscdk": "^4.4.0",
+    "eslint-plugin-awscdk": "^4.4.1",
     "eslint-plugin-import-x": "^4.17.1",
     "globals": "^17.11.0",
     "jiti": "^2.7.0",
-    "tsx": "^4.23.12",
+    "tsx": "^4.23.13",
     "typescript": "^6.0.3",
     "typescript-eslint": "^8.68.0"
   },
   "dependencies": {
-    "aws-cdk-lib": "^2.266.0",
+    "aws-cdk-lib": "^2.267.0",
     "constructs": "^10.8.1",
     "source-map-support": "^0.5.21"
   }
