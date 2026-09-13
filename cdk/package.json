@@ -13,14 +13,14 @@
     "lint": "eslint"
   },
   "devDependencies": {
-    "@eslint/compat": "^2.1.0",
+    "@eslint/compat": "^2.1.1",
     "@eslint/eslintrc": "^3.3.7",
     "@eslint/js": "^10.0.1",
     "@stylistic/eslint-plugin": "^5.10.0",
     "@types/node": "^26.4.1",
-    "aws-cdk": "^2.1139.0",
+    "aws-cdk": "^2.1140.0",
     "cdk-ecr-deployment": "^4.2.63",
-    "eslint": "^10.9.1",
+    "eslint": "^10.10.0",
     "eslint-import-resolver-typescript": "^4.4.5",
     "eslint-plugin-awscdk": "^4.4.1",
     "eslint-plugin-import-x": "^4.17.1",
