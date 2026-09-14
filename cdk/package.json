@@ -17,7 +17,7 @@
     "@eslint/eslintrc": "^3.3.7",
     "@eslint/js": "^10.0.1",
     "@stylistic/eslint-plugin": "^5.10.0",
-    "@types/node": "^26.4.1",
+    "@types/node": "^26.5.0",
     "aws-cdk": "^2.1140.0",
     "cdk-ecr-deployment": "^4.2.63",
     "eslint": "^10.10.0",
