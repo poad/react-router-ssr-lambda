@@ -1,9 +1,7 @@
 import * as cdk from 'aws-cdk-lib';
 import * as lambda from 'aws-cdk-lib/aws-lambda';
-import * as ecrdeploy from 'cdk-ecr-deployment';
-import * as assets from 'aws-cdk-lib/aws-ecr-assets';
-import * as logs from 'aws-cdk-lib/aws-logs';
-import * as ecr from 'aws-cdk-lib/aws-ecr';
+import * as s3 from 'aws-cdk-lib/aws-s3';
+import * as s3deploy from 'aws-cdk-lib/aws-s3-deployment';
 import * as iam from 'aws-cdk-lib/aws-iam';
 import { Construct } from 'constructs';
 
@@ -16,76 +14,105 @@ export class CdkStack extends cdk.Stack {
     super(scope, id, props);
 
     const { name } = props;
-
     const functionName = `${name}-function`;
-    const logGroup = new logs.LogGroup(this, 'LogGroup', {
-      logGroupName: `/aws/lambda/${functionName}`,
+
+    // Deployment package bucket (versioning is required by Lambda Web Functions
+    // so that each revision pins an immutable object version).
+    const codeBucket = new s3.Bucket(this, 'CodeBucket', {
+      versioned: true,
       removalPolicy: cdk.RemovalPolicy.DESTROY,
-      retention: logs.RetentionDays.ONE_DAY,
+      autoDeleteObjects: true,
+      enforceSSL: true,
     });
 
-    const repo = new ecr.Repository(this, 'Repository', {
-      repositoryName: 'react-router-ssr-lambda',
-      removalPolicy: cdk.RemovalPolicy.DESTROY,
-      emptyOnDelete: true,
-    });
+    // Lambda reads the deployment package directly from this bucket,
+    // so the bucket policy must allow the Lambda service principal.
+    // Revision ARNs are generated at creation time, hence the wildcard.
+    codeBucket.addToResourcePolicy(
+      new iam.PolicyStatement({
+        sid: 'AllowLambdaWebFunctionCodeAccess',
+        principals: [new iam.ServicePrincipal('lambda.amazonaws.com')],
+        actions: ['s3:GetObject', 's3:GetObjectVersion'],
+        resources: [codeBucket.arnForObjects('*')],
+        conditions: {
+          ArnLike: {
+            'aws:SourceArn': `arn:${this.partition}:lambda:${this.region}:${this.account}:web-function/${functionName}/revision/*`,
+          },
+        },
+      }),
+    );
 
-    const image = new assets.DockerImageAsset(this, 'Image', {
-      directory: '../app',
-    });
-
-    const deployment = new ecrdeploy.ECRDeployment(this, 'DeployDockerImage', {
-      src: new ecrdeploy.DockerImageName(image.imageUri),
-      dest: new ecrdeploy.DockerImageName(
-        `${this.account}.dkr.ecr.${this.region}.amazonaws.com/${repo.repositoryName}:latest`,
-      ),
-    });
-
-    const role = new iam.Role(this, 'Role', {
-      assumedBy: new iam.ServicePrincipal('lambda.amazonaws.com'),
-      inlinePolicies: {
-        InlinePolicy: new iam.PolicyDocument({
-          statements: [
-            new iam.PolicyStatement({
-              actions: ['logs:*'],
-              resources: [`${logGroup.logGroupArn}:*`],
-            }),
-            new iam.PolicyStatement({
-              actions: [
-                'ecr:GetAuthorizationToken',
-                'ecr:BatchCheckLayerAvailability',
-                'ecr:GetDownloadUrlForLayer',
-                'ecr:BatchGetImage',
-              ],
-              resources: [repo.repositoryArn, `${repo.repositoryArn}:*`],
-            }),
-          ],
+    // Zip the app directory and upload it as a single object.
+    // NOTE: run `pnpm build` first so that app/build (and app/index.js,
+    // app/node_modules) are included. extract:false keeps the .zip as-is and
+    // exposes its key/version via objectKeys/objectVersionIds.
+    // prune:false keeps older packages so previous revisions stay deployable.
+    const deployment = new s3deploy.BucketDeployment(this, 'DeployCode', {
+      sources: [
+        s3deploy.Source.asset('../app', {
+          exclude: ['cdk.out', '.cdk.staging', '*.log', '.DS_Store'],
         }),
-      },
+      ],
+      destinationBucket: codeBucket,
+      destinationKeyPrefix: 'code',
+      extract: false,
+      prune: false,
+    });
+    const codeKey = cdk.Fn.select(0, deployment.objectKeys);
+    const codeVersionId = cdk.Fn.select(0, deployment.objectVersionIds);
+
+    const executionRole = new iam.Role(this, 'ExecutionRole', {
+      assumedBy: new iam.ServicePrincipal('lambda.amazonaws.com'),
+      managedPolicies: [
+        iam.ManagedPolicy.fromAwsManagedPolicyName('service-role/AWSLambdaBasicExecutionRole'),
+      ],
     });
 
-    const handler = new lambda.DockerImageFunction(this, 'Handler', {
+    const webFunction = new lambda.CfnWebFunction(this, 'WebFunction', {
       functionName,
-      code: lambda.DockerImageCode.fromEcr(repo),
-      memorySize: 256,
-      timeout: cdk.Duration.seconds(30),
-      architecture: lambda.Architecture.X86_64,
-      environment: {
-        AWS_LWA_ENABLE_COMPRESSION: 'true',
-        ASYNC_INIT: 'true',
-        RUST_LOG: 'info',
-      },
-      role,
     });
 
-    handler.node.addDependency(deployment);
+    const revision = new lambda.CfnWebFunctionRevision(this, 'Revision', {
+      functionName: webFunction.ref,
+      description: 'React Router SSR app',
+      buildConfig: {
+        codeConfig: {
+          s3Object: {
+            bucket: codeBucket.bucketName,
+            key: codeKey,
+            versionId: codeVersionId,
+          },
+        },
+        runtimeConfig: {
+          runtime: 'nodejs24.x',
+        },
+      },
+      serviceConfig: {
+        executionRoleArn: executionRole.roleArn,
+        timeoutSeconds: 30,
+        maxConcurrencyPerEnvironment: 64,
+      },
+    });
+    // The .zip must exist before the revision is created. objectKeys /
+    // objectVersionIds already add an implicit dependency, this makes it explicit.
+    revision.node.addDependency(deployment);
 
-    const url = handler.addFunctionUrl({
-      authType: lambda.FunctionUrlAuthType.NONE,
+    const endpoint = new lambda.CfnWebFunctionEndpoint(this, 'Endpoint', {
+      functionName: webFunction.ref,
+      endpointName: 'prod',
+      endpointType: 'HomeRegion',
+      // Same as the previous FunctionUrlAuthType.NONE: the app handles auth.
+      authType: 'ApplicationManaged',
+      revisionWeights: [
+        {
+          revisionId: revision.attrRevisionId,
+          weight: 100,
+        },
+      ],
     });
 
     new cdk.CfnOutput(this, 'Output', {
-      value: url.url,
+      value: cdk.Fn.join('', ['https://', endpoint.attrDomainName]),
     });
   }
 }

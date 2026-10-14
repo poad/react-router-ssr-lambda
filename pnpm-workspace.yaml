@@ -10,6 +10,7 @@ minimumReleaseAge: 10080 # 7 days in minutes
 
 minimumReleaseAgeExclude:
   - pnpm@12.13.0
+  - aws-cdk-lib@2.273.0
 
 overrides:
   chokidar: '>=5'

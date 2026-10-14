@@ -1,45 +1,47 @@
 import compression from 'compression';
 import express from 'express';
 import morgan from 'morgan';
+import path from 'node:path';
+import { fileURLToPath } from 'node:url';
+import { createRequestHandler } from '@react-router/express';
+
+// Lambda Web Functions passes the listen address via AWS_LAMBDA_HTTP_ENDPOINT
+// (host:port). Fall back to 0.0.0.0:3000 for local runs.
+const [HOST, PORT_STRING] = (process.env.AWS_LAMBDA_HTTP_ENDPOINT ?? '0.0.0.0:3000').split(':');
+const HOSTNAME = HOST || '0.0.0.0';
+const PORT = Number.parseInt(PORT_STRING || process.env.PORT || '3000', 10);
+
+// Module-relative paths so the layout works both in the repo (server/server.js)
+// and in the Lambda Web Functions .zip (server/ + build/ + public/ preserved).
+const BUILD_URL = new URL('../build/server/index.js', import.meta.url);
+const CLIENT_DIR = fileURLToPath(new URL('../build/client', import.meta.url));
+const PUBLIC_DIR = fileURLToPath(new URL('../public', import.meta.url));
 
 // Short-circuit the type-checking of the built output.
-const BUILD_PATH = './build/server/index.js';
-const DEVELOPMENT = process.env.NODE_ENV === 'development';
-const PORT = Number.parseInt(process.env.PORT ?? '3000');
+const build = await import(BUILD_URL.href);
 
 const app = express();
 
 app.use(compression());
 app.disable('x-powered-by');
 
-if (DEVELOPMENT) {
-  console.log('Starting development server');
-  const viteDevServer = await import('vite').then((vite) =>
-    vite.createServer({
-      server: { middlewareMode: true },
-    }),
-  );
-  app.use(viteDevServer.middlewares);
-  app.use(async (req, res, next) => {
-    try {
-      const source = await viteDevServer.ssrLoadModule('./server/app.ts');
-      return await source.app(req, res, next);
-    } catch (error) {
-      if (typeof error === 'object' && error instanceof Error) {
-        viteDevServer.ssrFixStacktrace(error);
-      }
-      next(error);
-    }
-  });
-} else {
-  console.log('Starting production server');
-  app.use('/assets', express.static('build/client/assets', { immutable: true, maxAge: '1y' }));
-  app.use(express.static('build/client', { maxAge: '1h' }));
-  app.use(await import(BUILD_PATH).then((mod) => mod.app));
-}
+const publicPath = build.publicPath ?? '/';
+const expressPublicPath = publicPath.startsWith('/') ? publicPath : `/${publicPath}`;
+const assetsBuildDirectory = path.isAbsolute(build.assetsBuildDirectory ?? '')
+  ? build.assetsBuildDirectory
+  : CLIENT_DIR;
+
+app.use(
+  path.posix.join(expressPublicPath, 'assets'),
+  express.static(path.join(assetsBuildDirectory, 'assets'), { immutable: true, maxAge: '1y' }),
+);
+app.use(expressPublicPath, express.static(assetsBuildDirectory, { maxAge: '1h' }));
+app.use(express.static(PUBLIC_DIR, { maxAge: '1h' }));
 
 app.use(morgan('tiny'));
 
-app.listen(PORT, () => {
-  console.log(`Server is running on http://localhost:${PORT}`);
+app.all('/{*splat}', createRequestHandler({ build, mode: process.env.NODE_ENV }));
+
+app.listen(PORT, HOSTNAME, () => {
+  console.log(`Server is running on http://${HOSTNAME}:${PORT}`);
 });
