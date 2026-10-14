@@ -6,19 +6,23 @@
   "scripts": {
     "build": "pnpm -r --if-present --parallel build",
     "lint": "pnpm -r --if-present --parallel lint",
-    "lint-fix": "pnpm -r --if-present --parallel lint-fix"
+    "lint-fix": "pnpm -r --if-present --parallel lint-fix",
+    "format": "oxfmt",
+    "format:check": "oxfmt --check"
+  },
+  "devDependencies": {
+    "oxfmt": "^0.72.0"
   },
   "devEngines": {
     "packageManager": {
       "name": "pnpm",
-      "version": "12.3.4",
+      "version": "12.13.0",
       "onFail": "download"
     },
     "runtime": {
       "name": "node",
-      "version": "^24.20.0",
+      "version": "^24.21.0",
       "onFail": "download"
     }
-  },
-  "devDependencies": {}
+  }
 }

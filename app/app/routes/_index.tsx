@@ -13,11 +13,7 @@ export default function Index() {
       <h1>Welcome to React Router v7</h1>
       <ul>
         <li>
-          <a
-            target="_blank"
-            href="https://reactrouter.com/tutorials/address-book"
-            rel="noreferrer"
-          >
+          <a target="_blank" href="https://reactrouter.com/tutorials/address-book" rel="noreferrer">
             Adress Book App Tutorial
           </a>
         </li>

@@ -9,11 +9,11 @@ inputs:
     required: true
 outputs:
   output-value:
-    description: "OutputValue"
+    description: 'OutputValue'
     value: ${{ steps.describe-stacks.outputs.output-value }}
 
 runs:
-  using: "composite"
+  using: 'composite'
   steps:
     - name: Describe Stacks
       id: describe-stacks

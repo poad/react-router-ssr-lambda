@@ -36,21 +36,19 @@ export class CdkStack extends cdk.Stack {
 
     const deployment = new ecrdeploy.ECRDeployment(this, 'DeployDockerImage', {
       src: new ecrdeploy.DockerImageName(image.imageUri),
-      dest: new ecrdeploy.DockerImageName(`${this.account}.dkr.ecr.${this.region}.amazonaws.com/${repo.repositoryName}:latest`),
+      dest: new ecrdeploy.DockerImageName(
+        `${this.account}.dkr.ecr.${this.region}.amazonaws.com/${repo.repositoryName}:latest`,
+      ),
     });
 
     const role = new iam.Role(this, 'Role', {
       assumedBy: new iam.ServicePrincipal('lambda.amazonaws.com'),
       inlinePolicies: {
-        'InlinePolicy': new iam.PolicyDocument({
+        InlinePolicy: new iam.PolicyDocument({
           statements: [
             new iam.PolicyStatement({
-              actions: [
-                'logs:*',
-              ],
-              resources: [
-                `${logGroup.logGroupArn}:*`,
-              ],
+              actions: ['logs:*'],
+              resources: [`${logGroup.logGroupArn}:*`],
             }),
             new iam.PolicyStatement({
               actions: [
