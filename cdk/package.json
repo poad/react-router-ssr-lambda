@@ -19,7 +19,7 @@
   },
   "devDependencies": {
     "@types/node": "^26.6.4",
-    "aws-cdk": "^2.1144.0",
+    "aws-cdk": "^2.1145.0",
     "oxlint": "^1.87.0",
     "oxlint-plugin-awscdk": "^1.0.3",
     "tsx": "^4.23.15",
