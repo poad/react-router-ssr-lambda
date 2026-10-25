@@ -21,7 +21,7 @@
     "@types/node": "^26.6.5",
     "aws-cdk": "^2.1145.0",
     "oxlint": "^1.88.0",
-    "oxlint-plugin-awscdk": "^1.0.3",
+    "oxlint-plugin-awscdk": "^1.0.4",
     "tsx": "^4.23.15",
     "typescript": "^7.0.2"
   }
