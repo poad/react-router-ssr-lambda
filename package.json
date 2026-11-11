@@ -11,7 +11,7 @@
     "format:check": "oxfmt --check"
   },
   "devDependencies": {
-    "oxfmt": "^0.75.0"
+    "oxfmt": "^0.76.0"
   },
   "devEngines": {
     "packageManager": {
@@ -21,7 +21,7 @@
     },
     "runtime": {
       "name": "node",
-      "version": "^26.13.0",
+      "version": "^26.13.1",
       "onFail": "download"
     }
   }
