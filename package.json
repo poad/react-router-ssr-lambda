@@ -11,12 +11,12 @@
     "format:check": "oxfmt --check"
   },
   "devDependencies": {
-    "oxfmt": "^0.76.0"
+    "oxfmt": "^0.77.0"
   },
   "devEngines": {
     "packageManager": {
       "name": "pnpm",
-      "version": "12.18.0",
+      "version": "12.20.0",
       "onFail": "download"
     },
     "runtime": {
