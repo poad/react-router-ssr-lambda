@@ -84,7 +84,7 @@ export class CdkStack extends cdk.Stack {
           },
         },
         runtimeConfig: {
-          runtime: 'nodejs24.x',
+          runtime: 'nodejs26.x',
         },
       },
       serviceConfig: {
